@@ -26390,10 +26390,6 @@
                 "HelpText": "This feature allows Runtime eDP Display Shift between iGfx and dGfx.",
                 "WidgetValues": [
                   {
-                    "Key": "Supported between Intel Integrated and Intel Discrete Adapter",
-                    "Value": "1"
-                  },
-                  {
                     "Key": "Supported between Intel Adapter and non-Intel Adapter",
                     "Value": "2"
                   },
