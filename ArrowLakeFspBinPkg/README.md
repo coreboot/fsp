@@ -7,5 +7,6 @@ For descriptions of the Intel® Core™ Ultra Processors (Series 2) Family (Prod
 Directory Name | Intel® Core™ Ultra Processors Series 2 (formerly Arrow Lake) SKU Description
 :------------- | :-------------------------
 IoT/ArrowLakeS | S-Series processors for Edge platforms
+IoT/ArrowLakeUH| UH-Series processors for Edge platforms
 
 Renaming the directory to the original "IoT" from "Edge (formerly known as IoT)" to fix the corrupted path.

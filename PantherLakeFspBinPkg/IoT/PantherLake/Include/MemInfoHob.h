@@ -3,33 +3,20 @@
   Memory S3 Save data, Memory Info data and Memory Platform
   data hobs.
 
-@copyright
-  Copyright 1999 - 2022 Intel Corporation.
+  @copyright
+  
+  Copyright (C) 1999 Intel Corporation.
 
-  The source code contained or described herein and all documents related to the
-  source code ("Material") are owned by Intel Corporation or its suppliers or
-  licensors. Title to the Material remains with Intel Corporation or its suppliers
-  and licensors. The Material may contain trade secrets and proprietary and
-  confidential information of Intel Corporation and its suppliers and licensors,
-  and is protected by worldwide copyright and trade secret laws and treaty
-  provisions. No part of the Material may be used, copied, reproduced, modified,
-  published, uploaded, posted, transmitted, distributed, or disclosed in any way
-  without Intel's prior express written permission.
+  This software and the related documents are Intel copyrighted materials,
+  and your use of them is governed by the express license under which they
+  were provided to you ("License"). Unless the License provides otherwise,
+  you may not use, modify, copy, publish, distribute, disclose or transmit
+  this software or the related documents without Intel's prior written
+  permission.
 
-  No license under any patent, copyright, trade secret or other intellectual
-  property right is granted to or conferred upon you by disclosure or delivery
-  of the Materials, either expressly, by implication, inducement, estoppel or
-  otherwise. Any license under such intellectual property rights must be
-  express and approved by Intel in writing.
-
-  Unless otherwise agreed by Intel in writing, you may not remove or alter
-  this notice or any other notice embedded in Materials by Intel or
-  Intel's suppliers or licensors in any way.
-
-  This file contains an 'Intel Peripheral Driver' and is uniquely identified as
-  "Intel Reference Module" and is licensed for Intel CPUs and chipsets under
-  the terms of your license agreement with Intel or your vendor. This file may
-  be modified by the user, subject to additional terms of the license agreement.
+  This software and the related documents are provided as is, with no
+  express or implied warranties, other than those that are expressly stated
+  in the License.
 
 @par Specification Reference:
 **/
@@ -48,8 +35,16 @@ extern EFI_GUID gSiMemoryPlatformDataGuid;
 #define MAX_CH          4
 #define MAX_DDR5_CH     2
 #define MAX_DIMM        2
+
+// Must be same or higher than the corresponding definitions in MrcGlobalDefinitions.h
+#define _MAX_RANK_IN_CHANNEL       (4)       ///< The maximum number of ranks per channel.
+#define _MAX_SDRAM_IN_DIMM         (5)       ///< The maximum number of SDRAMs per DIMM.
+
+// Must match the corresponding definition in CMrcExtTypes.h
+#define PPR_REQUEST_MAX           (2)
+
 // Must match definitions in
-// Intel\ClientOneSiliconPkg\IpBlock\MemoryInit\Mtl\Include\MrcInterface.h
+// Intel\OneSiliconPkg\IpBlock\MemoryInit\Mtl\Include\MrcInterface.h
 #define HOB_MAX_SAGV_POINTS 4
 
 ///
@@ -90,7 +85,7 @@ typedef struct _EFI_HOB_GUID_TYPE {
 // Matches MAX_SPD_SAVE define in MRC
 //
 #ifndef MAX_SPD_SAVE
-#define MAX_SPD_SAVE 29
+#define MAX_SPD_SAVE 39
 #endif
 
 //
@@ -153,17 +148,14 @@ typedef enum {
 //
 // Matches MrcDdrType enum in MRC
 //
+#ifndef MRC_DDR_TYPE_LPDDR5
+#define MRC_DDR_TYPE_LPDDR5   0
+#endif
 #ifndef MRC_DDR_TYPE_DDR5
 #define MRC_DDR_TYPE_DDR5     1
 #endif
-#ifndef MRC_DDR_TYPE_LPDDR5
-#define MRC_DDR_TYPE_LPDDR5   2
-#endif
-#ifndef MRC_DDR_TYPE_LPDDR4
-#define MRC_DDR_TYPE_LPDDR4   3
-#endif
 #ifndef MRC_DDR_TYPE_UNKNOWN
-#define MRC_DDR_TYPE_UNKNOWN  4
+#define MRC_DDR_TYPE_UNKNOWN  2
 #endif
 
 #define MAX_PROFILE_NUM       7 // number of memory profiles supported
@@ -175,6 +167,10 @@ typedef enum {
 
 #ifndef MAX_ODT_ENTRIES
 #define MAX_ODT_ENTRIES       11
+#endif
+
+#ifndef MAX_COPY_DIMM_DFE_TAPS
+#define MAX_COPY_DIMM_DFE_TAPS      2
 #endif
 
 #define MAX_TRACE_REGION              5
@@ -207,29 +203,47 @@ typedef struct {
   UINT16 tWTR_S;    ///< Number of tCK cycles for the channel DIMM's minimum internal write to read command delay time for different bank groups.
   UINT16 tCCD_L;    ///< Number of tCK cycles for the channel DIMM's minimum CAS-to-CAS delay for same bank group.
   UINT16 tCCD_L_WR; ///< Number of tCK cycles for the channel DIMM's minimum Write-to-Write delay for same bank group.
-  UINT8  Resv[2];   ///< Resv
+  UINT8  Resv[2];   ///< Reserved.
 } MRC_CH_TIMING;
 
 typedef struct {
   UINT16 tRDPRE;     ///< Read CAS to Precharge cmd delay
 } MRC_IP_TIMING;
 
+typedef union {
+  struct {
+    UINT16 ContinuationCount                   :  7; ///< Bits 6:0
+    UINT16 ContinuationParity                  :  1; ///< Bits 7:7
+    UINT16 LastNonZeroByte                     :  8; ///< Bits 15:8
+  } Bits;
+  UINT16 Data;
+  UINT8  Data8[2];
+} HOB_MANUFACTURER_ID_CODE;
+
 ///
 /// Memory SMBIOS & OC Memory Data Hob
 ///
 typedef struct {
-  UINT8            Status;                  ///< See MrcDimmStatus for the definition of this field.
-  UINT8            DimmId;
-  UINT32           DimmCapacity;            ///< DIMM size in MBytes.
-  UINT16           MfgId;
-  UINT8            ModulePartNum[20];       ///< Module part number for DDR3 is 18 bytes however for DDR4 20 bytes as per JEDEC Spec, so reserving 20 bytes
-  UINT8            RankInDimm;              ///< The number of ranks in this DIMM.
-  UINT8            SpdDramDeviceType;       ///< Save SPD DramDeviceType information needed for SMBIOS structure creation.
-  UINT8            SpdModuleType;           ///< Save SPD ModuleType information needed for SMBIOS structure creation.
-  UINT8            SpdModuleMemoryBusWidth; ///< Save SPD ModuleMemoryBusWidth information needed for SMBIOS structure creation.
-  UINT8            SpdSave[MAX_SPD_SAVE];   ///< Save SPD Manufacturing information needed for SMBIOS structure creation.
-  UINT16           Speed;                   ///< The maximum capable speed of the device, in MHz
-  UINT8            MdSocket;                ///< MdSocket: 0 = Memory Down, 1 = Socketed. Needed for SMBIOS structure creation.
+  UINT8                     Status;                  ///< See MrcDimmStatus for the definition of this field.
+  UINT8                     DimmId;
+  UINT32                    DimmCapacity;            ///< DIMM size in MBytes.
+  HOB_MANUFACTURER_ID_CODE  MfgId;                   ///< Dram module manufacturer ID
+  HOB_MANUFACTURER_ID_CODE  CkdMfgID;                ///< Clock Driver (CKD) Manufacturer ID
+  UINT8                     CkdDeviceRev;            ///< Clock Driver (CKD) device revision
+  HOB_MANUFACTURER_ID_CODE  DramMfgID;               ///< Manufacturer ID code for DRAM chip on the module
+  UINT8                     ModulePartNum[30];       ///< Module part number in ASCII
+  UINT8                     RankInDimm;              ///< The number of ranks in this DIMM.
+  UINT8                     SpdDramDeviceType;       ///< Save SPD DramDeviceType information needed for SMBIOS structure creation.
+  UINT8                     SpdModuleType;           ///< Save SPD ModuleType information needed for SMBIOS structure creation.
+  UINT8                     SpdSave[MAX_SPD_SAVE];   ///< Save SPD Manufacturing information needed for SMBIOS structure creation.
+  UINT16                    Speed;                   ///< The maximum capable speed of the device, in MHz
+  UINT8                     MdSocket;                ///< MdSocket: 0 = Memory Down, 1 = Socketed. Needed for SMBIOS structure creation.
+  UINT8                     Banks;                   ///< Number of banks the DIMM contains.
+  UINT8                     BankGroups;              ///< Number of bank groups the DIMM contains.
+  UINT8                     DeviceDensity;           ///< Device Density in Gb
+  UINT32                    SerialNumber;            ///< DIMM Serial Number
+  UINT8                     TotalWidth;              ///< Total Data width in bits
+  UINT8                     DataWidth;               ///< Primary bus width in bits
 } DIMM_INFO;
 
 typedef struct {
@@ -248,6 +262,13 @@ typedef struct {
   CHANNEL_INFO     ChannelInfo[MAX_CH];     ///< The following are channel level definitions.
 } CONTROLLER_INFO;
 
+//
+// Each DIMM Slot Mechanical present bit map
+//
+typedef struct {
+  UINT8 MrcSlotMap[MAX_NODE][MAX_CH];
+} MRC_SLOTMAP;
+
 typedef struct {
   UINT64   BaseAddress;   ///< Trace Base Address
   UINT64   TotalSize;     ///< Total Trace Region of Same Cache type
@@ -261,6 +282,7 @@ typedef struct {
   UINT32        DataRate;    ///< The memory rate for the current SaGv Point in units of MT/s
   MRC_CH_TIMING JedecTiming; ///< Timings used for this entry's corresponding SaGv Point - derived from JEDEC SPD spec
   MRC_IP_TIMING IpTiming;    ///< Timings used for this entry's corresponding SaGv Point - IP specific
+  UINT16        MaxMemoryBandwidth; ///< Maximum theoretical bandwidth in GB/s supported by GV
 } HOB_SAGV_TIMING_OUT;
 
 /// This data structure contains SAGV config values that are considered output by the MRC.
@@ -270,14 +292,41 @@ typedef struct {
   HOB_SAGV_TIMING_OUT SaGvTiming[HOB_MAX_SAGV_POINTS];
 } HOB_SAGV_INFO;
 
+typedef struct _PPR_RESULT_COLUMNS_HOB {
+  UINT8  PprRowRepairsSuccessful;
+  UINT8  Controller;
+  UINT8  Channel;
+  UINT8  Rank;
+  UINT8  BankGroup;
+  UINT8  Bank;
+  UINT32 Row;
+  UINT8  Device;
+} PPR_RESULT_COLUMNS_HOB;
+
+/**
+  Memory Info Data Hob
+
+  <b>Revision 1:</b>
+  - Initial version. (from MTL)
+  <b>Revision 2:</b>
+  - Added MopPackages, MopDensity, MopRanks, MopVendor fields
+  <b>Revision 3:</b>
+  - Added MaxRankCapacity
+  - Removed DataWidth
+  - DIMM_INFO: increased ModulePartNum from 20 to 30 chars
+  - DIMM_INFO: Added SerialNumber, TotalWidth and DataWidth
+  - DIMM_INFO: Removed SpdModuleMemoryBusWidth
+  - MFG ID fields: use HOB_MANUFACTURER_ID_CODE instead of UINT16 for easier parsing
+  <b>Revision 4:</b>
+  - Added FailingChannelMask
+**/
 typedef struct {
   UINT8             Revision;
-  UINT16            DataWidth;              ///< Data width, in bits, of this memory device
   /** As defined in SMBIOS 3.0 spec
     Section 7.18.2 and Table 75
   **/
-  UINT8             MemoryType;             ///< DDR type: DDR3, DDR4, or LPDDR3
-  UINT16            MaximumMemoryClockSpeed;///< The maximum capable speed of the device, in megahertz (MHz)
+  UINT8             MemoryType;                 ///< DDR type: DDR5 or LPDDR5, uses SMBIOS MEMORY_DEVICE_TYPE encoding
+  UINT16            MaximumMemoryClockSpeed;    ///< The maximum capable speed of the device, in megahertz (MHz)
   UINT16            ConfiguredMemoryClockSpeed; ///< The configured clock speed to the memory device, in megahertz (MHz)
   /** As defined in SMBIOS 3.0 spec
     Section 7.17.3 and Table 72
@@ -299,14 +348,28 @@ typedef struct {
   UINT32            VppVoltage[MAX_PROFILE_NUM];
   UINT16            RcompTarget[MAX_PROFILE_NUM][MAX_RCOMP_TARGETS];
   UINT16            DimmOdt[MAX_PROFILE_NUM][MAX_DIMM][MAX_ODT_ENTRIES];
+  INT8              DimmDFE[MAX_PROFILE_NUM][MAX_DDR5_CH][MAX_DIMM][MAX_COPY_DIMM_DFE_TAPS];
   CONTROLLER_INFO   Controller[MAX_NODE];
   UINT32            NumPopulatedChannels;              ///< Total number of memory channels populated
   HOB_SAGV_INFO     SagvConfigInfo;                    ///< This data structure contains SAGV config values that are considered output by the MRC.
   BOOLEAN           IsIbeccEnabled;
   UINT16            TotalMemWidth;                     ///< Total Memory Width in bits from all populated channels
+  UINT8             MopPackages;                       ///< Mop DRAM package population
+  UINT8             MopDensity;                        ///< Mop DRAM die density
+  UINT8             MopRanks;                          ///< Mop Number of ranks
+  UINT8             MopVendor;                         ///< Mop DRAM vendor ID
+  UINT8             PprRanInLastBoot;                  ///< Whether PPR ran in the prior boot
   UINT16            PprDetectedErrors;                 ///< PPR: Counts of detected bad rows
   UINT16            PprRepairFails;                    ///< PPR: Counts of repair failure
   UINT16            PprForceRepairStatus;              ///< PPR: Force Repair Status
+  UINT16            PprRepairsSuccessful;              ///< PPR: Counts of repair successes
+  PPR_RESULT_COLUMNS_HOB PprErrorInfo;                 ///< PPR: Error location
+  UINT8             PprAvailableResources[MAX_NODE][MAX_CH][_MAX_RANK_IN_CHANNEL][_MAX_SDRAM_IN_DIMM]; ///< PPR available resources per device
+  BOOLEAN           MixedEccDimms;                     ///< TRUE if both ECC and nonECC Dimms were detected in the system
+  UINT8             MaxRankCapacity;                   ///< Maximum possible rank capacity in [GB]
+  UINT16            PprFailingChannelBitMask;          ///< PPR failing channel mask
+  BOOLEAN           PprTargetedStatus[PPR_REQUEST_MAX]; ///< PPR status of each Targeted PPR request (0 = Targeted PPR was successful, 1 = PPR failed)
+  UINT8             FailingChannelMask;                ///< Limp Home mode failing channel bitmask
 } MEMORY_INFO_DATA_HOB;
 
 /**
@@ -331,6 +394,9 @@ typedef struct {
   PSMI_MEM_INFO     PsmiInfo[MAX_TRACE_CACHE_TYPE];
   PSMI_MEM_INFO     PsmiRegionInfo[MAX_TRACE_REGION];
   BOOLEAN           MrcBasicMemoryTestPass;
+  UINT8             Reserved1[3];                      // Reserved for alignment
+  UINT64            BiosPeiMemoryBaseAddress;
+  UINT64            BiosPeiMemoryLength;
 } MEMORY_PLATFORM_DATA;
 
 typedef struct {
@@ -338,6 +404,19 @@ typedef struct {
   MEMORY_PLATFORM_DATA Data;
   UINT8                *Buffer;
 } MEMORY_PLATFORM_DATA_HOB;
+
+#define EFI_RMT_OS_VARIABLE_NAME        L"Rmt"
+#define RMT_ENABLE  1
+#define RMT_DISABLE 0
+
+extern EFI_GUID gRmtVariableGuid;
+
+//Structure of RMT UEFI variable which should be R/W by OS
+//EnDsRmt - To enable Memory margining support
+
+typedef struct {
+  UINT8                EnDsRmt;
+} RMT_VAR;
 
 #pragma pack (pop)
 

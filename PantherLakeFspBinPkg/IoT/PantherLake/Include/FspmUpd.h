@@ -50,6 +50,41 @@ typedef struct {
   UINT16            BiosChipInitCrc;  ///< 16 bit CRC value of PchChipInit Table
 } CHIPSET_INIT_INFO;
 
+///
+/// MRC Error Key Value Entry structure maps an MRC error code to an error message string.
+///
+/*
+//
+// MRC Error Key Value Table Entries
+// OEM can customize this table to display error messages on VGA display
+// The Key is used to look up the error message, and the Value is the message string
+//
+// Message types:
+// - MRC_NO_MEMORY_DETECTED (0xDF7E)        - "NO MEMORY DETECTED"
+// - MRC_MEM_INIT_DONE_WITH_ERRORS (0xDF55) - "BASIC MEMORY TEST FAILED"
+// - 0xFFFF (Fallback)                      - "MRC FAILED, POST CODE: " + POST code in hex
+//   Any other MRC failure (SPD processing, PLL lock, calibration, training etc.)
+//   will use the fallback message with the actual POST code appended.
+//
+// Maximum message length (excluding null terminator):
+// - Exact match messages (specific POST code keys): 80 characters
+// - Fallback message (key 0xFFFF): 73 characters (+ "0xXXXX" appended automatically)
+//
+*/
+typedef struct {
+  UINT32         Key;            ///< MRC POST code (16-bit value, 0xFFFF = fallback key)
+  CONST CHAR8    *Value;         ///< MRC error message string
+} FSP_MRC_ERROR_KEY_VALUE_ENTRY;
+
+///
+/// MRC Error Key Value Table contains array of error code to message mappings.
+///
+typedef struct {
+  UINT32                         Count; ///< Number of entries in Entry[] array
+  UINT32                         Size;  ///< Total size of table in bytes
+  FSP_MRC_ERROR_KEY_VALUE_ENTRY  Entry[]; ///< Variable length array of key-value pairs
+} FSP_MRC_ERROR_KEY_VALUE_TABLE;
+
 
 /** Fsp M Configuration
 **/
@@ -141,9 +176,30 @@ typedef struct {
 **/
   UINT8                       MemTestOnWarmBoot;
 
-/** Offset 0x007B
+/** Offset 0x007B - NnFlex Override for PHY RxEqTap0
+  Controlled by NnFlexPhyOvrdMask bit[0], 6 bit 2's complement
 **/
-  UINT8                       FspmUpdRsvd1[5];
+  UINT8                       NnFlexPhyRxEqTap0;
+
+/** Offset 0x007C - NnFlex Override for PHY RxEqTap1
+  Controlled by NnFlexPhyOvrdMask bit[1], 6 bit 2's complement, valid range: [-16..15]
+**/
+  UINT8                       NnFlexPhyRxEqTap1;
+
+/** Offset 0x007D - NnFlex Override for PHY DqTcoComp
+  Controlled by NnFlexPhyOvrdMask bit[2], 6 bit 2's complement
+**/
+  UINT8                       NnFlexPhyDqTcoComp;
+
+/** Offset 0x007E - NnFlex Override for PHY RxCtleR
+  Controlled by NnFlexPhyOvrdMask bit[3]
+**/
+  UINT8                       NnFlexPhyRxCtleR;
+
+/** Offset 0x007F - NnFlex Override for PHY RxCtleC
+  Controlled by NnFlexPhyOvrdMask bit[4]
+**/
+  UINT8                       NnFlexPhyRxCtleC;
 
 /** Offset 0x0080 - Platform Reserved Memory Size
   The minimum platform memory size required to pass control into DXE
@@ -156,9 +212,35 @@ typedef struct {
 **/
   UINT16                      MemorySpdDataLen;
 
-/** Offset 0x008A
+/** Offset 0x008A - NnFlex Override for PHY RxCtleRcmn
+  Controlled by NnFlexPhyOvrdMask bit[5]
 **/
-  UINT8                       FspmUpdRsvd2[6];
+  UINT8                       NnFlexPhyRxCtleRcmn;
+
+/** Offset 0x008B - NnFlex Override for PHY RxCtleEq
+  Controlled by NnFlexPhyOvrdMask bit[6]
+**/
+  UINT8                       NnFlexPhyRxCtleEq;
+
+/** Offset 0x008C - NnFlex Override for PHY RxCtleTailCtl
+  Controlled by NnFlexPhyOvrdMask bit[7]
+**/
+  UINT8                       NnFlexPhyRxCtleTailCtl;
+
+/** Offset 0x008D - NnFlex Override for LP5 Dfeq
+  Controlled by NnFlexDramOvrdMask bit[0], MR24 encoding
+**/
+  UINT8                       NnFlexLpddr5Dfeq;
+
+/** Offset 0x008E - NnFlex Override for LP5 PdDrvStr
+  Controlled by NnFlexDramOvrdMask bit[1], MR3 encoding
+**/
+  UINT8                       NnFlexLpddr5PdDrvStr;
+
+/** Offset 0x008F - NnFlex Override for LP5 SocOdt
+  Controlled by NnFlexDramOvrdMask bit[2], MR17 encoding
+**/
+  UINT8                       NnFlexLpddr5SocOdt;
 
 /** Offset 0x0090 - Memory SPD Pointer Controller 0 Channel 0 Dimm 0
   Pointer to SPD data, will be used only when SpdAddressTable SPD Address are marked as 00
@@ -1259,9 +1341,10 @@ typedef struct {
 **/
   UINT8                       IbeccProtectedRegionEnable[8];
 
-/** Offset 0x027D
+/** Offset 0x027D - NnFlex Override for LP5 PreEmpDn
+  Controlled by NnFlexDramOvrdMask bit[3], MR58 encoding
 **/
-  UINT8                       FspmUpdRsvd45;
+  UINT8                       NnFlexLpddr5PreEmpDn;
 
 /** Offset 0x027E - IbeccProtectedRegionBases
   IBECC Protected Region Bases per IBECC instance
@@ -1541,9 +1624,10 @@ typedef struct {
 **/
   UINT8                       SafeModeOverride;
 
-/** Offset 0x02CB
+/** Offset 0x02CB - NnFlex Override for LP5 PreEmpUp
+  Controlled by NnFlexDramOvrdMask bit[4], MR58 encoding
 **/
-  UINT8                       FspmUpdRsvd7;
+  UINT8                       NnFlexLpddr5PreEmpUp;
 
 /** Offset 0x02CC - IbeccEccInjAddrBase
   Address to match against for ECC error injection. Example: 1 = 32MB, 2 = 64MB
@@ -1651,9 +1735,10 @@ typedef struct {
 **/
   UINT8                       ThrtCkeMinTmrLpddr;
 
-/** Offset 0x02E7
+/** Offset 0x02E7 - NnFlex Override for LP5 WckDcaWr
+  Controlled by NnFlexDramOvrdMask bit[5], 4-bit 2's complement, valid range: [-7..7]
 **/
-  UINT8                       FspmUpdRsvd8;
+  UINT8                       NnFlexLpddr5WckDcaWr;
 
 /** Offset 0x02E8 - Margin limit check L2
   Margin limit check L2 threshold: <b>100=Default</b>
@@ -1801,11 +1886,81 @@ typedef struct {
 **/
   UINT8                       DIMMRXOFFSET;
 
-/** Offset 0x0321 - MrcPreMemRsvd
+/** Offset 0x0321 - Enable Flexible Analog Settings
+  Enable/Disable Flexible Analog Settings
+  $EN_DIS
+**/
+  UINT8                       FlexibleAnalogSettings;
+
+/** Offset 0x0322 - Force WRDSEQT at 2400
+  Force Enable Write Drive Strength training at 2400
+  $EN_DIS
+**/
+  UINT8                       ForceWRDSEQT2400;
+
+/** Offset 0x0323 - NnFlex Override for LP5 WckDcaRd
+  Controlled by NnFlexDramOvrdMask bit[6], 4-bit 2's complement, valid range: [-7..7]
+**/
+  UINT8                       NnFlexLpddr5WckDcaRd;
+
+/** Offset 0x0324 - NnFlex Override for LP5 RttNT
+  Controlled by NnFlexDramOvrdMask bit[7], MR41 encoding
+**/
+  UINT8                       NnFlexLpddr5RttNT;
+
+/** Offset 0x0325 - NnFlex Override for DDR5 DfeTap1
+  Controlled by NnFlexDramOvrdMask bit[0], 8-bit 2's complement, valid range: [-40..40]
+**/
+  UINT8                       NnFlexDdr5DfeTap1;
+
+/** Offset 0x0326 - NnFlex Override for DDR5 DfeTap2
+  Controlled by NnFlexDramOvrdMask bit[1], 8-bit 2's complement, valid range: [-15..15]
+**/
+  UINT8                       NnFlexDdr5DfeTap2;
+
+/** Offset 0x0327 - NnFlex Override for DDR5 RttWr
+  Controlled by NnFlexDramOvrdMask bit[2], MR34 encoding
+**/
+  UINT8                       NnFlexDdr5RttWr;
+
+/** Offset 0x0328 - NnFlex Override for DDR5 RttNomWr
+  Controlled by NnFlexDramOvrdMask bit[3], MR35 encoding
+**/
+  UINT8                       NnFlexDdr5RttNomWr;
+
+/** Offset 0x0329 - NnFlex Override for DDR5 RttNomRd
+  Controlled by NnFlexDramOvrdMask bit[4], MR35 encoding
+**/
+  UINT8                       NnFlexDdr5RttNomRd;
+
+/** Offset 0x032A - NnFlex Override for DDR5 RonUp
+  Controlled by NnFlexDramOvrdMask bit[5], MR5 encoding
+**/
+  UINT8                       NnFlexDdr5RonUp;
+
+/** Offset 0x032B - NnFlex Override for DDR5 RonDn
+  Controlled by NnFlexDramOvrdMask bit[6], MR5 encoding
+**/
+  UINT8                       NnFlexDdr5RonDn;
+
+/** Offset 0x032C - NnFlex Phy Override Enable bit mask
+  Bitmask to enable PHY NnFlex overrides. [0]: PhyRxEqTap0 [1]: PhyRxEqTap1 [2]: PhyDqTcoComp
+  [3]: PhyRxCtleR [4]: PhyRxCtleC [5]: PhyRxCtleRcmn [6]: PhyRxCtleEq [7]: PhyRxCtleTailCtl
+**/
+  UINT8                       NnFlexPhyOvrdMask;
+
+/** Offset 0x032D - NnFlex LP5/DDR5 Override Enable bit mask
+  Bitmask to enable LP5/DDR5 NnFlex overrides. [0]: Lp5Dfeq/Ddr5DfeTap1 [1]: Lp5PdDrvStr/Ddr5DfeTap2
+  [2]: Lp5SocOdt/Ddr5RttWr [3]: Lp5PreEmpDn/Ddr5RttNomWr [4]: Lp5PreEmpUp/Ddr5RttNomRd
+  [5]: Lp5WckDcaWr/Ddr5RonUp [6]: Lp5WckDcaRd/Ddr5RonDn [7]: Lp5RttNT
+**/
+  UINT8                       NnFlexDramOvrdMask;
+
+/** Offset 0x032E - MrcPreMemRsvd
   Reserved for MRC Pre-Mem
   $EN_DIS
 **/
-  UINT8                       MrcPreMemRsvd[14];
+  UINT8                       MrcPreMemRsvd;
 
 /** Offset 0x032F - Board Type
   MrcBoardType, Options are 0=Mobile/Mobile Halo, 1=Desktop/DT Halo, 5=ULT/ULX/Mobile
@@ -4110,7 +4265,8 @@ typedef struct {
   BIT1 - (0 : VGA Text Mode 3, 1 : VGA Graphics Mode 12), BIT2 - (0 : VGA Exit Supported,
   1: NO VGA Exit), BIT3 - (0 : VGA Init During Display Init, 1 - VGA Init During
   MRC Cold Boot), BIT4 - (0 : Enable Progress Bar, 1 : Disable Progress Bar), BIT5
-  - (0 : VGA Mode 12 16 Color Support, 1 : VGA Mode 12 Monochrome Black and White Support)
+  - (0 : VGA Mode 12 16 Color Support, 1 : VGA Mode 12 Monochrome Black and White
+  Support), BIT6-7 - (0 : No Higher Cd Clock, 1 : 442 MHz, 2 : 461 MHz, 3 : Reserved)
   0:VGA Disable, 1:Mode 3 VGA, 2:Mode 12 VGA
 **/
   UINT8                       VgaInitControl;
@@ -4284,47 +4440,67 @@ typedef struct {
 **/
   UINT8                       LpcLockstep;
 
-/** Offset 0x0ACD - McParity
+/** Offset 0x0ACD - Fusa Module 0 Available
+  Enable/Disable Lockstep for Atom module 0, which has 4 cores; 0: Disable lockstep;
+  1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep
+  for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3
+  0: Not Available, 1: Available
+**/
+  UINT8                       Module0LockstepSupport;
+
+/** Offset 0x0ACE - Fusa Module 1 Available
+  Enable/Disable Lockstep for Atom module 1, which has 4 cores; 0: Disable lockstep;
+  1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep
+  for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3
+  0: Not Available, 1: Available
+**/
+  UINT8                       Module1LockstepSupport;
+
+/** Offset 0x0ACF - Fusa LPC Available
+  Enable/Disable Lockstep for Atom module 1, which has 4 cores; 0: Disable lockstep;
+  1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep
+  for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3
+  0: Not Available, 1: Available
+**/
+  UINT8                       LpcLockstepSupport;
+
+/** Offset 0x0AD0 - McParity
   CMI/MC Parity Control
   $EN_DIS
 **/
   UINT8                       McParity;
 
-/** Offset 0x0ACE - Asynchronous ODT
+/** Offset 0x0AD1 - Asynchronous ODT
   This option configures the Memory Controler Asynchronous ODT control
   0:Enabled, 1:Disabled
 **/
   UINT8                       AsyncOdtDis;
 
-/** Offset 0x0ACF - DLL Weak Lock Support
+/** Offset 0x0AD2 - DLL Weak Lock Support
   Enables/Disable DLL Weak Lock Support
   $EN_DIS
 **/
   UINT8                       WeaklockEn;
 
-/** Offset 0x0AD0
+/** Offset 0x0AD3
 **/
   UINT8                       FspmUpdRsvd39;
 
-/** Offset 0x0AD1 - Rx DQS Delay Comp Support
+/** Offset 0x0AD4 - Rx DQS Delay Comp Support
   Enables/Disable Rx DQS Delay Comp Support
   $EN_DIS
 **/
   UINT8                       RxDqsDelayCompEn;
 
-/** Offset 0x0AD2
+/** Offset 0x0AD5
 **/
   UINT8                       FspmUpdRsvd336[2];
 
-/** Offset 0x0AD4 - Mrc Failure On Unsupported Dimm
+/** Offset 0x0AD7 - Mrc Failure On Unsupported Dimm
   Enables/Disable Mrc Failure On Unsupported Dimm
   $EN_DIS
 **/
   UINT8                       MrcFailureOnUnsupportedDimm;
-
-/** Offset 0x0AD5
-**/
-  UINT8                       UnusedUpdSpace0[3];
 
 /** Offset 0x0AD8 - Fore Single Rank config
   Enables/Disable Fore Single Rank config
@@ -4721,7 +4897,24 @@ typedef struct {
 
 /** Offset 0x0B52
 **/
-  UINT8                       FspmUpdRsvd49[27];
+  UINT8                       FspmUpdRsvd50[6];
+
+/** Offset 0x0B58 - Graphics Mode 12 Font Pointer
+  Pointer to VGA Mode 12 Font Data (8x16 character set).\n
+  Format: UINT8 array[256][16] where each character is 16 bytes (16 rows of 8 pixels).\n
+  Must be provided if VGA Mode 12 is enabled.
+**/
+  UINT64                      GraphicsMode12FontPtr;
+
+/** Offset 0x0B60 - MRC Error Key Value Table Pointer
+  Pointer to MRC Error Key Value Table. Table maps MRC error codes to error message
+  strings for display during memory init. See FSP_MRC_ERROR_KEY_VALUE_TABLE.
+**/
+  UINT64                      MrcErrorKeyValueTablePtr;
+
+/** Offset 0x0B68
+**/
+  UINT8                       FspmUpdRsvd49[5];
 
 /** Offset 0x0B6D
 **/

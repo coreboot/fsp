@@ -102,10 +102,19 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_KeepEarlyTrace                  1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_MemMapOverlapCheckSupport       1 bytes    $_DEFAULT_ = 0x0
         $gPlatformFspPkgTokenSpaceGuid_MemTestOnWarmBoot               1 bytes    $_DEFAULT_ = 0x01
-        Skip 5 bytes
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxEqTap0               1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxEqTap1               1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyDqTcoComp              1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleR                1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleC                1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_PlatformMemorySize              8 bytes    $_DEFAULT_ = 0x15000000
         $gPlatformFspPkgTokenSpaceGuid_MemorySpdDataLen                2 bytes    $_DEFAULT_ = 0x200
-        Skip 6 bytes
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleRcmn             1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleEq               1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleTailCtl          1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5Dfeq                1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5PdDrvStr            1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5SocOdt              1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_MemorySpdPtr000                 8 bytes    $_DEFAULT_ = 0x00000000
         $gPlatformFspPkgTokenSpaceGuid_MemorySpdPtr001                 8 bytes    $_DEFAULT_ = 0x00000000
         $gPlatformFspPkgTokenSpaceGuid_MemorySpdPtr010                 8 bytes    $_DEFAULT_ = 0x00000000
@@ -296,7 +305,7 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_MsHashEnable                    1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_IbeccOperationMode              1 bytes    $_DEFAULT_ = 0x02
         $gPlatformFspPkgTokenSpaceGuid_IbeccProtectedRegionEnable      8 bytes    $_DEFAULT_ = 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
-        Skip 1 bytes
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5PreEmpDn            1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_IbeccProtectedRegionBase       16 bytes    $_DEFAULT_ = 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
         $gPlatformFspPkgTokenSpaceGuid_IbeccProtectedRegionMask       16 bytes    $_DEFAULT_ = 0xFF,0x3F,0xFF,0x3F,0xFF,0x3F,0xFF,0x3F,0xFF,0x3F,0xFF,0x3F,0xFF,0x3F,0xFF,0x3F
         $gPlatformFspPkgTokenSpaceGuid_RemapEnable                     1 bytes    $_DEFAULT_ = 0x01
@@ -343,7 +352,7 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_DisPgCloseIdleTimeout           1 bytes    $_DEFAULT_ = 0x0
         $gPlatformFspPkgTokenSpaceGuid_CmdRanksTerminated              1 bytes    $_DEFAULT_ = 0x01
         $gPlatformFspPkgTokenSpaceGuid_SafeModeOverride                1 bytes    $_DEFAULT_ = 0xFF
-        Skip 1 bytes
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5PreEmpUp            1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_IbeccEccInjAddrBase             4 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_DdrSafeMode                     4 bytes    $_DEFAULT_ = 0x04
         $gPlatformFspPkgTokenSpaceGuid_McSafeMode                      1 bytes    $_DEFAULT_ = 0x0
@@ -362,7 +371,7 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_VccIogVoltageOverride           2 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_VccClkVoltageOverride           2 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_ThrtCkeMinTmrLpddr              1 bytes    $_DEFAULT_ = 0x00
-        Skip 1 bytes
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5WckDcaWr            1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_MarginLimitL2                   2 bytes    $_DEFAULT_ = 0x64
         $gPlatformFspPkgTokenSpaceGuid_ExtendedBankHashing             1 bytes    $_DEFAULT_ = 0x01
         $gPlatformFspPkgTokenSpaceGuid_DrfmBrc                         1 bytes    $_DEFAULT_ = 0x02
@@ -389,7 +398,20 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_Lp5SafeSpeed                    1 bytes    $_DEFAULT_ = 0x01
         $gPlatformFspPkgTokenSpaceGuid_ForceInternalClkOn              1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_DIMMRXOFFSET                    1 bytes    $_DEFAULT_ = 0x01
-        $gPlatformFspPkgTokenSpaceGuid_MrcPreMemRsvd                  14 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_FlexibleAnalogSettings          1 bytes    $_DEFAULT_ = 0x01
+        $gPlatformFspPkgTokenSpaceGuid_ForceWRDSEQT2400                1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5WckDcaRd            1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5RttNT               1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5DfeTap1               1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5DfeTap2               1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RttWr                 1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RttNomWr              1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RttNomRd              1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RonUp                 1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RonDn                 1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyOvrdMask               1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_NnFlexDramOvrdMask              1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_MrcPreMemRsvd                   1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_UserBd                          1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_SpdAddressTable                16 bytes    $_DEFAULT_ = 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00
         $gPlatformFspPkgTokenSpaceGuid_TxtImplemented                  1 bytes    $_DEFAULT_ = 0x1
@@ -806,6 +828,9 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_Module0Lockstep                 1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_Module1Lockstep                 1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_LpcLockstep                     1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_Module0LockstepSupport          1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_Module1LockstepSupport          1 bytes    $_DEFAULT_ = 0x00
+        $gPlatformFspPkgTokenSpaceGuid_LpcLockstepSupport              1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_McParity                        1 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_AsyncOdtDis                     1 bytes    $_DEFAULT_ = 0x0
         $gPlatformFspPkgTokenSpaceGuid_WeaklockEn                      1 bytes    $_DEFAULT_ = 0x00
@@ -813,7 +838,6 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_RxDqsDelayCompEn                1 bytes    $_DEFAULT_ = 0x00
         Skip 2 bytes
         $gPlatformFspPkgTokenSpaceGuid_MrcFailureOnUnsupportedDimm     1 bytes    $_DEFAULT_ = 0x00
-        Skip 3 bytes
         $gPlatformFspPkgTokenSpaceGuid_ForceSingleRank                 4 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_DynamicMemoryBoost              4 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_RealtimeMemoryFrequency         4 bytes    $_DEFAULT_ = 0x00
@@ -878,6 +902,9 @@ StructDef
         $gPlatformFspPkgTokenSpaceGuid_Vdd1Voltage                     2 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_Vdd2LVoltage                    2 bytes    $_DEFAULT_ = 0x00
         $gPlatformFspPkgTokenSpaceGuid_VddqVoltage                     2 bytes    $_DEFAULT_ = 0x00
+        Skip 6 bytes
+        $gPlatformFspPkgTokenSpaceGuid_GraphicsMode12FontPtr           8 bytes    $_DEFAULT_ = 0x0000000000000000
+        $gPlatformFspPkgTokenSpaceGuid_MrcErrorKeyValueTablePtr        8 bytes    $_DEFAULT_ = 0x0000000000000000
 
     Find "PTLUPD_S"
         $gPlatformFspPkgTokenSpaceGuid_Revision                        1 bytes    $_DEFAULT_ = 0x02
@@ -2410,6 +2437,21 @@ List &gPlatformFspPkgTokenSpaceGuid_LpcLockstep
     Selection 3 , " Enable lockstep for Core 2 with Core 3"
 EndList
 
+List &gPlatformFspPkgTokenSpaceGuid_Module0LockstepSupport
+    Selection 0 , " Not Available"
+    Selection 1 , " Available"
+EndList
+
+List &gPlatformFspPkgTokenSpaceGuid_Module1LockstepSupport
+    Selection 0 , " Not Available"
+    Selection 1 , " Available"
+EndList
+
+List &gPlatformFspPkgTokenSpaceGuid_LpcLockstepSupport
+    Selection 0 , " Not Available"
+    Selection 1 , " Available"
+EndList
+
 List &gPlatformFspPkgTokenSpaceGuid_AsyncOdtDis
     Selection 0 , "Enabled"
     Selection 1 , "Disabled"
@@ -2755,11 +2797,44 @@ Page "Memory Reference Code"
         Help "Enable(Default): Enable MemoryOverlap check, Disable: Disable MemoryOverlap check"
     Combo $gPlatformFspPkgTokenSpaceGuid_MemTestOnWarmBoot, "Memory Test on Warm Boot", &gPlatformFspPkgTokenSpaceGuid_MemTestOnWarmBoot,
         Help "Run Base Memory Test on Warm Boot"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxEqTap0, "NnFlex Override for PHY RxEqTap0", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[0], 6 bit 2's complement"
+             "Valid range: 0x00 ~ 0x3F"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxEqTap1, "NnFlex Override for PHY RxEqTap1", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[1], 6 bit 2's complement, valid range: [-16..15]"
+             "Valid range: 0x00 ~ 0x3F"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyDqTcoComp, "NnFlex Override for PHY DqTcoComp", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[2], 6 bit 2's complement"
+             "Valid range: 0x00 ~ 0x3F"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleR, "NnFlex Override for PHY RxCtleR", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[3]"
+             "Valid range: 0x00 ~ 0x03"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleC, "NnFlex Override for PHY RxCtleC", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[4]"
+             "Valid range: 0x00 ~ 0x03"
     EditNum $gPlatformFspPkgTokenSpaceGuid_PlatformMemorySize, "Platform Reserved Memory Size", HEX,
         Help "The minimum platform memory size required to pass control into DXE"
              "Valid range: 0x00 ~ 0xFFFFFFFFFFFFFFFF"
     Combo $gPlatformFspPkgTokenSpaceGuid_MemorySpdDataLen, "SPD Data Length", &gPlatformFspPkgTokenSpaceGuid_MemorySpdDataLen,
         Help "Length of SPD Data"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleRcmn, "NnFlex Override for PHY RxCtleRcmn", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[5]"
+             "Valid range: 0x00 ~ 0x03"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleEq, "NnFlex Override for PHY RxCtleEq", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[6]"
+             "Valid range: 0x00 ~ 0x07"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyRxCtleTailCtl, "NnFlex Override for PHY RxCtleTailCtl", HEX,
+        Help "Controlled by NnFlexPhyOvrdMask bit[7]"
+             "Valid range: 0x00 ~ 0x03"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5Dfeq, "NnFlex Override for LP5 Dfeq", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[0], MR24 encoding"
+             "Valid range: 0x00 ~ 0x07"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5PdDrvStr, "NnFlex Override for LP5 PdDrvStr", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[1], MR3 encoding"
+             "Valid range: 0x00 ~ 0x06"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5SocOdt, "NnFlex Override for LP5 SocOdt", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[2], MR17 encoding"
+             "Valid range: 0x00 ~ 0x06"
     EditNum $gPlatformFspPkgTokenSpaceGuid_MemorySpdPtr000, "Memory SPD Pointer Controller 0 Channel 0 Dimm 0", HEX,
         Help "Pointer to SPD data, will be used only when SpdAddressTable SPD Address are marked as 00"
              "Valid range: 0x00 ~ 0xFFFFFFFF"
@@ -3216,6 +3291,9 @@ Page "Memory Reference Code"
         Help "In-Band ECC Operation Mode"
     Combo $gPlatformFspPkgTokenSpaceGuid_IbeccProtectedRegionEnable, "IbeccProtectedRegionEnable", &EN_DIS,
         Help "In-Band ECC Protected Region Enable "
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5PreEmpDn, "NnFlex Override for LP5 PreEmpDn", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[3], MR58 encoding"
+             "Valid range: 0x00 ~ 0x03"
     EditNum $gPlatformFspPkgTokenSpaceGuid_IbeccProtectedRegionBase, "IbeccProtectedRegionBases", HEX,
         Help "IBECC Protected Region Bases per IBECC instance"
              "Valid range: 0x00 ~ 0xFFFF"
@@ -3317,6 +3395,9 @@ Page "Memory Reference Code"
     EditNum $gPlatformFspPkgTokenSpaceGuid_SafeModeOverride, "MRC Safe Mode Override", HEX,
         Help "SafeModeOverride[0] Enable DdrSafeMode override, SafeModeOverride[1] Enable McSafeMode override, SafeModeOverride[2] Enable MrcSafeMode override, SafeModeOverride[3] Enable Training Algorithm (TrainingEnables) safe mode override, SafeModeOverride[4] Enable SaGv safe mode override"
              "Valid range: 0x00 ~ 0x7"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5PreEmpUp, "NnFlex Override for LP5 PreEmpUp", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[4], MR58 encoding"
+             "Valid range: 0x00 ~ 0x03"
     EditNum $gPlatformFspPkgTokenSpaceGuid_IbeccEccInjAddrBase, "IbeccEccInjAddrBase", HEX,
         Help "Address to match against for ECC error injection. Example: 1 = 32MB, 2 = 64MB"
              "Valid range: 0x00 ~ 0xFFFFFFFF"
@@ -3361,6 +3442,9 @@ Page "Memory Reference Code"
     EditNum $gPlatformFspPkgTokenSpaceGuid_ThrtCkeMinTmrLpddr, "ThrtCkeMinTmrLpddr", HEX,
         Help "Throttler CKE min timer for LPDDR: 0=Minimal, 0xFF=Maximum, <b>0x00=Default</b>"
              "Valid range: 0x00 ~ 0xFF"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5WckDcaWr, "NnFlex Override for LP5 WckDcaWr", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[5], 4-bit 2's complement, valid range: [-7..7]"
+             "Valid range: 0x00 ~ 0x0F"
     EditNum $gPlatformFspPkgTokenSpaceGuid_MarginLimitL2, "Margin limit check L2", HEX,
         Help "Margin limit check L2 threshold: <b>100=Default</b>"
              "Valid range: 0x00 ~ 0xFFFF"
@@ -3428,6 +3512,43 @@ Page "Memory Reference Code"
         Help "Force InternalClocksOn and TxPiOn to be set to 1 for frequencies >= 7467"
     Combo $gPlatformFspPkgTokenSpaceGuid_DIMMRXOFFSET, "DIMM Rx Offset Calibration training", &EN_DIS,
         Help "Enable/Disable DIMM Rx Offset Calibration training"
+    Combo $gPlatformFspPkgTokenSpaceGuid_FlexibleAnalogSettings, "Enable Flexible Analog Settings", &EN_DIS,
+        Help "Enable/Disable Flexible Analog Settings"
+    Combo $gPlatformFspPkgTokenSpaceGuid_ForceWRDSEQT2400, "Force WRDSEQT at 2400", &EN_DIS,
+        Help "Force Enable Write Drive Strength training at 2400"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5WckDcaRd, "NnFlex Override for LP5 WckDcaRd", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[6], 4-bit 2's complement, valid range: [-7..7]"
+             "Valid range: 0x00 ~ 0x0F"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexLpddr5RttNT, "NnFlex Override for LP5 RttNT", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[7], MR41 encoding"
+             "Valid range: 0x00 ~ 0x07"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5DfeTap1, "NnFlex Override for DDR5 DfeTap1", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[0], 8-bit 2's complement, valid range: [-40..40]"
+             "Valid range: 0x00 ~ 0xFF"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5DfeTap2, "NnFlex Override for DDR5 DfeTap2", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[1], 8-bit 2's complement, valid range: [-15..15]"
+             "Valid range: 0x00 ~ 0xFF"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RttWr, "NnFlex Override for DDR5 RttWr", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[2], MR34 encoding"
+             "Valid range: 0x00 ~ 0x07"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RttNomWr, "NnFlex Override for DDR5 RttNomWr", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[3], MR35 encoding"
+             "Valid range: 0x00 ~ 0x07"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RttNomRd, "NnFlex Override for DDR5 RttNomRd", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[4], MR35 encoding"
+             "Valid range: 0x00 ~ 0x07"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RonUp, "NnFlex Override for DDR5 RonUp", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[5], MR5 encoding"
+             "Valid range: 0x00 ~ 0x02"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDdr5RonDn, "NnFlex Override for DDR5 RonDn", HEX,
+        Help "Controlled by NnFlexDramOvrdMask bit[6], MR5 encoding"
+             "Valid range: 0x00 ~ 0x02"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexPhyOvrdMask, "NnFlex Phy Override Enable bit mask", HEX,
+        Help "Bitmask to enable PHY NnFlex overrides. [0]: PhyRxEqTap0 [1]: PhyRxEqTap1 [2]: PhyDqTcoComp [3]: PhyRxCtleR [4]: PhyRxCtleC [5]: PhyRxCtleRcmn [6]: PhyRxCtleEq [7]: PhyRxCtleTailCtl"
+             "Valid range: 0x00 ~ 0xFF"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_NnFlexDramOvrdMask, "NnFlex LP5/DDR5 Override Enable bit mask", HEX,
+        Help "Bitmask to enable LP5/DDR5 NnFlex overrides. [0]: Lp5Dfeq/Ddr5DfeTap1 [1]: Lp5PdDrvStr/Ddr5DfeTap2 [2]: Lp5SocOdt/Ddr5RttWr [3]: Lp5PreEmpDn/Ddr5RttNomWr [4]: Lp5PreEmpUp/Ddr5RttNomRd [5]: Lp5WckDcaWr/Ddr5RonUp [6]: Lp5WckDcaRd/Ddr5RonDn [7]: Lp5RttNT"
+             "Valid range: 0x00 ~ 0xFF"
     Combo $gPlatformFspPkgTokenSpaceGuid_MrcPreMemRsvd, "MrcPreMemRsvd", &EN_DIS,
         Help "Reserved for MRC Pre-Mem"
     Combo $gPlatformFspPkgTokenSpaceGuid_UserBd, "Board Type", &gPlatformFspPkgTokenSpaceGuid_UserBd,
@@ -4373,7 +4494,7 @@ Page "CPU(PreMem)"
     Combo $gPlatformFspPkgTokenSpaceGuid_LidStatus, "Platform LID Status for LFP Displays.", &gPlatformFspPkgTokenSpaceGuid_LidStatus,
         Help "LFP Display Lid Status (LID_STATUS enum): 0 (Default): LidClosed, 1: LidOpen."
     Combo $gPlatformFspPkgTokenSpaceGuid_VgaInitControl, "Control SOL VGA Initialition sequence", &gPlatformFspPkgTokenSpaceGuid_VgaInitControl,
-        Help "Initialise SOL Init, BIT0 - (0 : Disable VGA Support, 1 : Enable VGA Support),, BIT1 - (0 : VGA Text Mode 3, 1 : VGA Graphics Mode 12), BIT2 - (0 : VGA Exit Supported, 1: NO VGA Exit), BIT3 - (0 : VGA Init During Display Init, 1 - VGA Init During MRC Cold Boot), BIT4 - (0 : Enable Progress Bar, 1 : Disable Progress Bar), BIT5 - (0 : VGA Mode 12 16 Color Support, 1 : VGA Mode 12 Monochrome Black and White Support)"
+        Help "Initialise SOL Init, BIT0 - (0 : Disable VGA Support, 1 : Enable VGA Support),, BIT1 - (0 : VGA Text Mode 3, 1 : VGA Graphics Mode 12), BIT2 - (0 : VGA Exit Supported, 1: NO VGA Exit), BIT3 - (0 : VGA Init During Display Init, 1 - VGA Init During MRC Cold Boot), BIT4 - (0 : Enable Progress Bar, 1 : Disable Progress Bar), BIT5 - (0 : VGA Mode 12 16 Color Support, 1 : VGA Mode 12 Monochrome Black and White Support), BIT6-7 - (0 : No Higher Cd Clock, 1 : 442 MHz, 2 : 461 MHz, 3 : Reserved)"
     EditNum $gPlatformFspPkgTokenSpaceGuid_LogoPixelHeight, "SOL VGA Graphics Mode 12 LogoPixelHeight", HEX,
         Help "Heigh of VGA Graphics Mode 12 Logo"
              "Valid range: 0x0 ~ 0xFFFF"
@@ -4433,6 +4554,12 @@ Page "CPU(PreMem)"
     Combo $gPlatformFspPkgTokenSpaceGuid_Module1Lockstep, "Fusa Module 1 Lockstep Configuration", &gPlatformFspPkgTokenSpaceGuid_Module1Lockstep,
         Help "Enable/Disable Lockstep for Atom module 1, which has 4 cores; 0: Disable lockstep; 1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3"
     Combo $gPlatformFspPkgTokenSpaceGuid_LpcLockstep, "Fusa LPC Lockstep Configuration", &gPlatformFspPkgTokenSpaceGuid_LpcLockstep,
+        Help "Enable/Disable Lockstep for Atom module 1, which has 4 cores; 0: Disable lockstep; 1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3"
+    Combo $gPlatformFspPkgTokenSpaceGuid_Module0LockstepSupport, "Fusa Module 0 Available", &gPlatformFspPkgTokenSpaceGuid_Module0LockstepSupport,
+        Help "Enable/Disable Lockstep for Atom module 0, which has 4 cores; 0: Disable lockstep; 1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3"
+    Combo $gPlatformFspPkgTokenSpaceGuid_Module1LockstepSupport, "Fusa Module 1 Available", &gPlatformFspPkgTokenSpaceGuid_Module1LockstepSupport,
+        Help "Enable/Disable Lockstep for Atom module 1, which has 4 cores; 0: Disable lockstep; 1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3"
+    Combo $gPlatformFspPkgTokenSpaceGuid_LpcLockstepSupport, "Fusa LPC Available", &gPlatformFspPkgTokenSpaceGuid_LpcLockstepSupport,
         Help "Enable/Disable Lockstep for Atom module 1, which has 4 cores; 0: Disable lockstep; 1: Enable lockstep for Core 0 with Core 1, Core 2 with Core 3; 2: Enable lockstep for Core 0 with Core 1; 3: Enable lockstep for Core 2 with Core 3"
     Combo $gPlatformFspPkgTokenSpaceGuid_McParity, "McParity", &EN_DIS,
         Help "CMI/MC Parity Control"
@@ -4600,6 +4727,12 @@ Page "CPU(PreMem)"
     EditNum $gPlatformFspPkgTokenSpaceGuid_VddqVoltage, "VDDQ Voltage Override", HEX,
         Help "Voltage is multiple of 5mV where 0 means Auto."
              "Valid range: 0x00 ~ 0xFFFF"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_GraphicsMode12FontPtr, "Graphics Mode 12 Font Pointer", HEX,
+        Help "Pointer to VGA Mode 12 Font Data (8x16 character set).\n Format: UINT8 array[256][16] where each character is 16 bytes (16 rows of 8 pixels).\n Must be provided if VGA Mode 12 is enabled."
+             "Valid range: 0x00 ~ 0xFFFFFFFFFFFFFFFF"
+    EditNum $gPlatformFspPkgTokenSpaceGuid_MrcErrorKeyValueTablePtr, "MRC Error Key Value Table Pointer", HEX,
+        Help "Pointer to MRC Error Key Value Table. Table maps MRC error codes to error message strings for display during memory init. See FSP_MRC_ERROR_KEY_VALUE_TABLE."
+             "Valid range: 0x00 ~ 0xFFFFFFFFFFFFFFFF"
 EndPage
 
 Page "System Agent(PreMem)"
