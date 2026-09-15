@@ -1,0 +1,2 @@
+# WildcatLakeFspBinPkg/IoT/WildcatLake
+These FSP binaries are intended to be used with the Intel® Core™ Series 3 (Code Named Wildcat Lake) for Edge Platforms for Edge platforms. Please consult WildcatLakeFspBinPkg/README.md for more information on how to select the correct FSP binary to use.
