@@ -2612,15 +2612,9 @@ typedef struct {
 **/
   UINT8                       VmdPortFunc[31];
 
-/** Offset 0x1061 - Enable VMD HotPlug
-  Enable/disable to VMD HotPlug.0: Disable(Default); 1: Enable
-  $EN_DIS
+/** Offset 0x1061
 **/
-  UINT8                       VmdHotPlug;
-
-/** Offset 0x1062
-**/
-  UINT8                       FspsUpdRsvd37[6];
+  UINT8                       FspsUpdRsvd37[7];
 
 /** Offset 0x1068 - VMD Variable
   VMD Variable Pointer.
